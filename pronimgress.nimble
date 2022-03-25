@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "bichanna"
-description   = "Text progress bars ... in Nim!!"
+description   = "Simple text progress bars in Nim!"
 license       = "MIT"
 srcDir        = "src"
 bin           = @["pronimgress"]
