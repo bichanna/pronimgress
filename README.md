@@ -42,3 +42,9 @@ stdout.write("\n")
 
 # output: Doing something time consuming [===========================================================>] 100.0% Completed
 ```
+
+## Contribution
+Contribution is always welcome :)
+
+## License 
+[MIT](https://github.com/bichanna/pronimgress/blob/master/LICENSE)
