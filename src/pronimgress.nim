@@ -83,10 +83,11 @@ proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") =
 
   # Assembling this:
   # {prefix} {leftSurroundChar}{backgroundChar}{progressChar}{progressHeadChar}{rightSurroundChar} <percentage> {suffix}
+  stdout.flushFile()
   if newSuffix.isEmptyOrWhitespace:
     printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {self.suffix}"
   else:
     printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {newSuffix}"
-  stdout.write($len(printV) & "\r")
+  stdout.write($(len(printV)) & "\r")
   stdout.flushFile()
   stdout.write(printV)
