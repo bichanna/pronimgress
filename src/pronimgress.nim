@@ -50,12 +50,14 @@ proc newPronimgressBar*(
     count: 0
   )
 
+
 proc stringXint(c: char, num: int): string =
   ## "hello " * 3 = "hello hello hello "
   
   for i in 0 ..< num:
     result &= $c
   return result
+
 
 proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") = 
   ## Updates the pronimgress bar
