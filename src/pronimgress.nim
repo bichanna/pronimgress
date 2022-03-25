@@ -3,7 +3,7 @@
   @author: Nobuharu Shimazu
 ]#
 
-import math, strformat, strutils
+import math, strformat, strutils, system
 
 type
   # {prefix} {leftSurroundChar}{backgroundChar}{progressChar}{progressHeadChar}{rightSurroundChar} <percentage> {suffix}
@@ -88,4 +88,5 @@ proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") =
   else:
     printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {newSuffix}"
   stdout.write($len(printV) & "\r")
+  stdout.flushFile()
   stdout.write(printV)
