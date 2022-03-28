@@ -3,7 +3,7 @@
   @author: Nobuharu Shimazu
 ]#
 
-import math, strformat, strutils, system
+import strformat, strutils, system
 
 type
   # {prefix} {leftSurroundChar}{backgroundChar}{progressChar}{progressHeadChar}{rightSurroundChar} <percentage> {suffix}
@@ -64,8 +64,8 @@ proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") =
   
   const lenBar = 60
   let
-    filledLen: int = round((lenBar * self.count).float / self.size).int
-    percents: float = round(100.0 * self.count.float32 / float32(self.size), 2)
+    filledLen: int = ((lenBar * self.count).float / self.size).int
+    percents: string = formatFloat(100.0 * self.count.float32 / float32(self.size), ffDecimal, 2)
   var
     bar: string = ""
     printV: string = ""
@@ -85,9 +85,9 @@ proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") =
   # {prefix} {leftSurroundChar}{backgroundChar}{progressChar}{progressHeadChar}{rightSurroundChar} <percentage> {suffix}
   stdout.flushFile()
   if newSuffix.isEmptyOrWhitespace:
-    printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {self.suffix}"
+    printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {self.suffix}" & "\r"
   else:
-    printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {newSuffix}"
-  stdout.write($(len(printV)) & "\r")
-  stdout.flushFile()
+    printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {newSuffix}" & "\r"
+  stdout.write(stringXint(' ', len(printV)) & "\r")
   stdout.write(printV)
+  stdout.flushFile()
