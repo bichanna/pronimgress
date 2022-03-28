@@ -51,8 +51,8 @@ proc newPronimgressBar*(
   )
 
 
-proc stringXint(c: char, num: int): string =
-  ## "hello " * 3 = "hello hello hello "
+proc charXint(c: char, num: int): string =
+  ## "h" * 3 = "hhh"
   
   for i in 0 ..< num:
     result &= $c
@@ -73,13 +73,13 @@ proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") =
 
   # Adding progress chars
   if self.progressHeadChar == '\0':
-    bar = stringXint(self.progressChar, filledLen)
+    bar = charXint(self.progressChar, filledLen)
     discard
   else:
-    bar = stringXint(self.progressChar, filledLen - 1) & $self.progressHeadChar
+    bar = charXint(self.progressChar, filledLen - 1) & $self.progressHeadChar
   
   # Adding background chars
-  bar &= stringXint(self.backgroundChar, lenBar - filledLen)
+  bar &= charXint(self.backgroundChar, lenBar - filledLen)
 
   # Assembling this:
   # {prefix} {leftSurroundChar}{backgroundChar}{progressChar}{progressHeadChar}{rightSurroundChar} <percentage> {suffix}
@@ -88,6 +88,6 @@ proc update*(self: var PronimgressBar, addCount: int, newSuffix: string = "") =
     printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {self.suffix}" & "\r"
   else:
     printV = fmt"{self.prefix} {self.leftSurroundChar}{bar}{self.rightSurroundChar} {percents}% {newSuffix}" & "\r"
-  stdout.write(stringXint(' ', len(printV)) & "\r")
+  stdout.write(charXint(' ', len(printV)) & "\r")
   stdout.write(printV)
   stdout.flushFile()
